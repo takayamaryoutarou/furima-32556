@@ -2,35 +2,35 @@
 
 ## users table
 
-| Column             | Type                | Options                 |
-|--------------------|---------------------|-------------------------|
-| email              | string              | unique: true            |
-| encrypted_password | string              | null: false             |
-| name               | string              | null: false             |
-| birthday           | date                | null: false             |
-| first_name         | string              | null: false             |
-| last_name          | string              | null: false             |
-| first_name_kana    | string              | null: false             |
-| last_name_kana     | string              | null: false             |
+| Column             | Type                | Options                   |
+|--------------------|---------------------|---------------------------|
+| email              | string              | unique: true, null: false |
+| encrypted_password | string              | null: false               |
+| name               | string              | null: false               |
+| birthday           | date                | null: false               |
+| first_name         | string              | null: false               |
+| last_name          | string              | null: false               |
+| first_name_kana    | string              | null: false               |
+| last_name_kana     | string              | null: false               |
 
 ### Association
 
 * has_many :items
-* has_many :purchase
+* has_many :purchases
 
 ## items table
 
 | Column                              | Type       | Options           |
 |-------------------------------------|------------|-------------------|
 | title                               | string     | null: false       |
-| category                            | string     | null: false       |
-| state                               | text       | null: false       |
+| category_id                         | integer    | null: false       |
+| state_id                            | integer    | null: false       |
 | user                                | references | foreign_key: true |
 | prefecture_id                       | integer    | null: false       |
-| delivery_date                       | string     | null: false       |
+| delivery_date_id                    | integer    | null: false       |
 | price                               | integer    | null: false       |
 | area                                | string     | null: false       |
-
+| delivery_charge                     | string     | null: false       |
 
 ### Association
 
@@ -41,14 +41,14 @@
 
 | Column                    | Type       | Options           |
 |---------------------------|------------|-------------------|
-| items                     | references | foreign_key: true |
-| users                     | references | foreign_key: true |
+| item                      | references | foreign_key: true |
+| user                      | references | foreign_key: true |
 
 ### Association
 
 - has_one :delivery_destination
 - belongs_to :user
-- belongs_to :items
+- belongs_to :item
 
 ## delivery_destination table
 
