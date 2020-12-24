@@ -20,17 +20,16 @@
 
 ## items table
 
-| Column                              | Type       | Options           |
-|-------------------------------------|------------|-------------------|
-| title                               | string     | null: false       |
-| category_id                         | integer    | null: false       |
-| state_id                            | integer    | null: false       |
-| user                                | references | foreign_key: true |
-| prefecture_id                       | integer    | null: false       |
-| delivery_date_id                    | integer    | null: false       |
-| price                               | integer    | null: false       |
-| area                                | string     | null: false       |
-| delivery_charge                     | string     | null: false       |
+| Column                               | Type       | Options           |
+|--------------------------------------|------------|-------------------|
+| title                                | string     | null: false       |
+| category_id                          | integer    | null: false       |
+| state_id                             | integer    | null: false       |
+| user                                 | references | foreign_key: true |
+| prefecture_id                        | integer    | null: false       |
+| delivery_date_id                     | integer    | null: false       |
+| price                                | integer    | null: false       |
+| delivery_charge_id                   | integer    | null: false       |
 
 ### Association
 
