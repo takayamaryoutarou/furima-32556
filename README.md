@@ -30,6 +30,7 @@
 | delivery_date_id                     | integer    | null: false       |
 | price                                | integer    | null: false       |
 | delivery_charge_id                   | integer    | null: false       |
+| product_description                  | text       | null: false       |
 
 ### Association
 
