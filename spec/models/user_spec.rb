@@ -48,14 +48,14 @@ RSpec.describe User, type: :model do
     end
 
     it 'passwordが6文字以上であれば登録できること' do
-      @user.password = '123456'
-      @user.password_confirmation = '123456'
+      @user.password = '12345t'
+      @user.password_confirmation = @user.password
       expect(@user).to be_valid
     end
 
     it 'passwordが5文字以下であれば登録できないこと' do
-      @user.password = '12345'
-      @user.password_confirmation = '12345'
+      @user.password = 'A234t'
+      @user.password_confirmation = 'A234t'
       @user.valid?
       expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
@@ -67,11 +67,47 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
 
+    it 'passwordが半角英字のみでは登録できないこと' do
+      @user.password = 'ttttttttttt'
+      @user.password_confirmation = @user.password
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password Encrypted password is invalid. Please enter alphanumeric characters.')
+    end
+
+    it 'passwordが半角数字のみでは登録できないこと' do
+      @user.password = '555555'
+      @user.password_confirmation = @user.password
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password Encrypted password is invalid. Please enter alphanumeric characters.')
+    end
+
+    it 'passwordが全角では登録できないこと' do
+      @user.password = 'ああああああああ'
+      @user.password_confirmation = @user.password
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password Encrypted password is invalid. Please enter alphanumeric characters.')
+    end
+
+
+
     it '重複したemailが存在する場合登録できないこと' do
       @user.save
       another_user = FactoryBot.build(:user, email: @user.email)
       another_user.valid?
       expect(another_user.errors.full_messages).to include('Email has already been taken')
     end
+
+    it '@が含まれないと登録できない' do
+      @user.email = 'tttttt12345'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Email is invalid"
+    end
+
+
+
+
+
+
+
   end
 end
