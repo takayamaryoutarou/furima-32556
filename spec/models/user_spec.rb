@@ -47,6 +47,29 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include "Last name kana can't be blank"
     end
 
+    it 'first_nameは全角（漢字・ひらがな・カタカナ）を使用しないと登録できない' do
+      @user.first_name = 'Tanaka'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "First name is invalid. Kanji / Hiragana / Katakana input characters."
+    end
+    it 'last_nameは全角（漢字・ひらがな・カタカナ）を使用しないと登録できない' do
+      @user.last_name = 'tarou'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Last name is invalid. Kanji / Hiragana / Katakana input characters."
+    end
+    it 'first_name_kanaは全角（カタカナ）を使用しないと登録できない' do
+      @user.first_name_kana = 'Tanaka亜'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "First name kana is invalid. Katakana input characters."
+    end
+    it 'last_name_kanaは全角（カタカナ）を使用しないと登録できない' do
+      @user.last_name_kana = 'tarou亜'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Last name kana is invalid. Katakana input characters."
+    end
+
+
+
     it 'passwordが6文字以上であれば登録できること' do
       @user.password = '12345t'
       @user.password_confirmation = @user.password
