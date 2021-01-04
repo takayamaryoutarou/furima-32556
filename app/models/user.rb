@@ -4,8 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   with_options presence: true do
-   
-   
    validates :name                
    validates :birthday           
    validates :first_name,         format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Kanji / Hiragana / Katakana input characters." }
