@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
 
   def index
-    @items = Item.includes(:user)
+    @items = Item.all
   end
 
   def new
@@ -27,6 +27,6 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    redirect_to new_user_session unless user_signed_in?
+    redirect_to user_session_path unless user_signed_in?
   end
 end
