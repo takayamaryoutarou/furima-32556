@@ -6,7 +6,6 @@ RSpec.describe Item, type: :model do
   end
 
   describe '商品出品機能' do
-
     context '商品登録がうまくいかない時' do
       it 'titleが空では登録できない' do
         @item.title = nil
@@ -54,7 +53,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include 'Price is not included in the list'
       end
       it '価格の範囲が9999999以上であれば登録できないこと' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include 'Price is not included in the list'
       end
@@ -70,7 +69,6 @@ RSpec.describe Item, type: :model do
       end
     end
     context '商品登録がうまく行く時' do
-
       it '価格の範囲が300以上、9999999以下、半角数字であれば登録できる' do
         @item.price = 301
         expect(@item).to be_valid

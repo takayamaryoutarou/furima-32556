@@ -1,11 +1,9 @@
 class ItemsController < ApplicationController
-  before_action :set_item, except: [:index, :new, :create]
+  before_action :set_item, except: [:index, :new, :show, :create]
   before_action :move_to_index, except: [:index, :show]
 
   def index
-
     @items = Item.includes(:user).order(created_at: :desc)
-
   end
 
   def new
@@ -21,6 +19,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
   private
 
   def item_params
@@ -28,10 +30,11 @@ class ItemsController < ApplicationController
                                  :delivery_charge_id, :prefecture_id, :state_id).merge(user_id: current_user.id)
   end
 
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
   def move_to_index
-
-
     redirect_to user_session_path unless user_signed_in?
-
   end
 end
