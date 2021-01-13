@@ -8,9 +8,9 @@ FactoryBot.define do
     delivery_charge_id         { 1 }
     price                      { 1000 }
     product_description        { '商品説明' }
-      after(:build) do |item|
-        item.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
-      end
+    after(:build) do |item|
+      item.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
+    end
     association :user
   end
 end
