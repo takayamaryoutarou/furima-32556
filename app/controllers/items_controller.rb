@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :set_item, except: [:index, :new, :create, :update] 
-  before_action :move_to_index, except: [:index, :show]
+  before_action :set_item, except: [:index, :new, :create] 
+  before_action :move_to_index, except: [:index, :show, :destroy]
   before_action :contributor_confirmation, only: [:edit, :update, :destroy]
 
   def index
@@ -23,13 +23,21 @@ class ItemsController < ApplicationController
   def show
   end
 
-  
+
   def edit
   end
 
   def update
     if @item.update(item_params)
       redirect_to root_path
+    else
+      render :new
+    end
+  end
+
+  def destroy
+    if @item.destroy
+    redirect_to root_path
     else
       render :new
     end
