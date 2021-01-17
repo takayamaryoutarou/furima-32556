@@ -1,0 +1,3 @@
+module PurchaseHelper
+
+end
