@@ -7,13 +7,16 @@ class PurchaseProcedure
     validates :postal_code, format: { with: /\A\d{3}[-]\d{4}$|^\d{3}[-]\d{2}$|^\d{3}\z/, message: 'Zip code requires hyphen' }
     validates :city
     validates :block
-    validates :phone_number,  numericality: { with: /\A\d{11}\z/, message: 'Phone number is invalid for more than 10 digits' }
+    validates :phone_number,  format: { with: /\A\d{10,11}\z/, message: 'is invalid for more than 10 digits' }
     validates :item_id
     validates :user_id
     validates :token
 
    
   end
+
+  validates :phone_number,  numericality: { message: 'are invalid except numbers' }
+
      with_options numericality: { other_than: 0 } do
       validates :prefecture_id
      end

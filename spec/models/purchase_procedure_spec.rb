@@ -27,6 +27,16 @@ RSpec.describe PurchaseProcedure, type: :model do
         @purchase_procedure.valid?
         expect(@purchase_procedure.errors.full_messages).to include "Phone number can't be blank"
       end
+      it 'phone_numberが12桁では登録できない' do
+        @purchase_procedure.phone_number = '090000000000'
+        @purchase_procedure.valid?
+        expect(@purchase_procedure.errors.full_messages).to include "Phone number is invalid for more than 10 digits"
+      end
+      it 'phone_numberが数字のみでないと登録できない' do
+        @purchase_procedure.phone_number = '0900a00000'
+        @purchase_procedure.valid?
+        expect(@purchase_procedure.errors.full_messages).to include "Phone number are invalid except numbers"
+      end
       it 'item_idが空では登録できない' do
         @purchase_procedure.item_id = nil
         @purchase_procedure.valid?
@@ -58,6 +68,10 @@ RSpec.describe PurchaseProcedure, type: :model do
     context '商品購入がうまく行く時' do
       it 'phone_numberが10桁以内であれば登録できる' do
         @purchase_procedure.phone_number = '09043514667'
+        expect(@purchase_procedure).to be_valid
+      end
+      it 'building_nameが空でも登録できる' do
+        @purchase_procedure.building_name = nil
         expect(@purchase_procedure).to be_valid
       end
       it '全ての購入情報が正しければ、登録できる' do
