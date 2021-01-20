@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_action :move_to_index, except: [:index, :show, :destroy]
+  before_action :move_to_index, except: [:show, :destroy]
   before_action :contributor_confirmation, only: [:edit, :update, :destroy]
 
   def index
