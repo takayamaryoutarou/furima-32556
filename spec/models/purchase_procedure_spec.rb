@@ -53,9 +53,9 @@ RSpec.describe PurchaseProcedure, type: :model do
         expect(@purchase_procedure.errors.full_messages).to include "Token can't be blank"
       end
       it 'prefecture_idが空では登録できない' do
-        @purchase_procedure.prefecture_id = nil
+        @purchase_procedure.prefecture_id = 0
         @purchase_procedure.valid?
-        expect(@purchase_procedure.errors.full_messages).to include "Prefecture is not a number"
+        expect(@purchase_procedure.errors.full_messages).to include "Prefecture must be other than 0"
       end
       it 'postal_codeがハイフンがなければ登録できないこと' do
         @purchase_procedure.postal_code = 123123
