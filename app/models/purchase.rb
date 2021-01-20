@@ -1,5 +1,5 @@
 class Purchase < ApplicationRecord
-  has_one_attached :item
+  belongs_to :item
 
 
 end
