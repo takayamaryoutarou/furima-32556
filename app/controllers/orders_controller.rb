@@ -3,8 +3,8 @@ class OrdersController < ApplicationController
   before_action :move_to_index, except: [:show, :destroy]
   
   before_action :set_item, only: [:index, :create] 
-  before_action :move_to_index_buy, only: [:create, :index]
-  
+  before_action :move_to_index_buy, only: [:create, :index, :edit]
+  before_action :move_to_index_purchase, only: [:edit, :create, :index]
 
   def index
     
@@ -59,7 +59,11 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index_buy
-    redirect_to root_path if current_user.id == @item.user_id ||  @item.purchase.present?
+    redirect_to root_path if current_user.id == @item.user_id 
+  end
+
+  def move_to_index_purchase
+    redirect_to root_path if  @item.purchase.present?
   end
  
 
